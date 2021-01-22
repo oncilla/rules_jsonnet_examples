@@ -1,0 +1,25 @@
+load("@io_bazel_rules_jsonnet//jsonnet:jsonnet.bzl", "jsonnet_to_json", "jsonnet_to_json_test")
+
+jsonnet_to_json(
+    name = "prometheus",
+    src = "prometheus.jsonnet",
+    imports = [
+        "external/com_github_grafana_grafonnet-lib",
+    ],
+    deps = [
+        "@com_github_grafana_grafonnet-lib//:grafonnet",
+    ],
+    outs = ["prometheus.json"],
+)
+
+jsonnet_to_json_test(
+    name = "prometheus_test",
+    src = "prometheus.jsonnet",
+    golden = "prometheus_compiled.json",
+    imports = [
+        "external/com_github_grafana_grafonnet-lib",
+    ],
+    deps = [
+        "@com_github_grafana_grafonnet-lib//:grafonnet",
+    ],
+)
